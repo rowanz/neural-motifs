@@ -1,3 +1,6 @@
+title: Neural Motifs: Scene Graph Parsing with Global Context
+description: Project page for Neural Motifs (Zellers et al. CVPR 2018)
+
 ## Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)
 by [Rowan Zellers](https://rowanzellers.com), [Mark Yatskar](https://homes.cs.washington.edu/~my89/), [Sam Thomson](https://http://samthomson.com/), [Yejin Choi](https://homes.cs.washington.edu/~yejin/)
 
