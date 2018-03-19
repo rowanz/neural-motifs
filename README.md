@@ -1,7 +1,7 @@
 # neural-motifs
 Code for Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)
 
-This repository contains data and code for the paper [Neural Motifs: Scene Graph Parsing with Global Context](https://arxiv.org/abs/1711.06640v1). NOTE: this ArXiv link is not the camera ready version - I'm working on that now! There are a couple minor details I'm working on changing, but they're not that important, so feel free to read it now. If the paper significantly inspires you, we request that you cite our work:
+This repository contains data and code for the paper [Neural Motifs: Scene Graph Parsing with Global Context](https://arxiv.org/abs/1711.06640v1). For the project page, check out [rowanzellers.com/neuralmotifs](https://rowanzellers.com/neuralmotifs) NOTE: this ArXiv link is not the camera ready version - I'm working on that now! There are a couple minor details I'm working on changing, but they're not that important, so feel free to read it now. If the paper significantly inspires you, we request that you cite our work:
 
 ### Bibtex
 
