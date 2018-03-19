@@ -1,16 +1,5 @@
----
-permalink: /
-title: Neural Motifs
-author: Rowan Zellers
-description: Scene Graph Parsing with Global Context (CVPR 2018)
-google_analytics_id: UA-84290243-3
----
-# Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)
-
-### by [Rowan Zellers](https://rowanzellers.com), [Mark Yatskar](https://homes.cs.washington.edu/~my89/), [Sam Thomson](https://http://samthomson.com/), [Yejin Choi](https://homes.cs.washington.edu/~yejin/)
-
-
-{% include image.html url="teaser.png" description="teaser" %} 
+## Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)
+by [Rowan Zellers](https://rowanzellers.com), [Mark Yatskar](https://homes.cs.washington.edu/~my89/), [Sam Thomson](https://http://samthomson.com/), [Yejin Choi](https://homes.cs.washington.edu/~yejin/)
 
 # Overview
 
@@ -45,7 +34,7 @@ Visit the [`neural-motifs` GitHub repository](https://github.com/rowanz/neural-m
 
 It is released under the MIT license.
 
-# Checkpoints available for download
+# Checkpoints
 * [Pretrained Detector](https://drive.google.com/open?id=11zKRr2OF5oclFL47kjFYBOxScotQzArX)
 * [Motifnet-SGDet](https://drive.google.com/open?id=1thd_5uSamJQaXAPVGVOUZGAOfGCYZYmb)
 * [Motifnet-SGCls/PredCls](https://drive.google.com/open?id=12qziGKYjFD3LAnoy4zDT3bcg5QLC0qN6)

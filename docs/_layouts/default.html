@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ page.title }}</title>
+    <meta name="author" content="{{ page.author }}">
+    <meta name="description" content="{{ page.description }}">
+    <meta name="keywords" content="{{ page.keywords }}">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Droid+Sans" rel="stylesheet">
+    <style type="text/css">
+        a {
+            color: #357edd;
+        }
+        a:hover {
+            color: #e7040f;
+        }
+        body {
+            font-size: 1.1em;
+            line-height: 1.2em;
+            margin: auto;
+            max-width: 700px;
+            width: 90%;
+            font-family: 'Droid Sans', sans-serif;
+        }
+        h1,
+        h2 {
+            letter-spacing: -.028em;
+            margin-top: 1em;
+            line-height: 2em;
+        }
+        pre,
+        code {
+            font-size: .9em;
+            font-family: Monaco, 'Lucida Console', monospace;
+            color: #f14e32;
+        }
+        pre {
+            overflow-x: auto;
+            margin: 0 0 2em 0;
+        }
+        .image-wrapper{
+          max-width:90%;
+          height:auto;
+          position: relative;
+          display:block;
+          margin:0 auto;
+        }
+
+        .image-wrapper img{
+          max-width:100% !important;
+          height:auto;
+          display:block;
+        }
+
+        /*.site-title {*/
+          /*font-family: 'Bungee Shade', cursive;*/
+        /*}*/
+    </style>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ page.google_analytics_id }}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+
+<body>
+    <!--<h1 class="site-title">{{ page.title }}</h1>-->
+    {{ content }}
+</body>
+
+</html>
