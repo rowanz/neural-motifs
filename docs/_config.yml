@@ -1,4 +1,4 @@
-theme: cayman
+theme: jekyll-theme-minimal
 title: Neural Motifs, Scene Graph Parsing with Global Context
 description: Project page for Neural Motifs (Zellers et al. CVPR 2018)
 show_downloads: "false"
