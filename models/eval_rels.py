@@ -14,8 +14,6 @@ import os
 conf = ModelConfig()
 if conf.model == 'motifnet':
     from lib.rel_model import RelModel
-elif conf.model == 'baseline':
-    from lib.rel_model_baseline import RelModelBaseline as RelModel
 elif conf.model == 'stanford':
     from lib.rel_model_stanford import RelModelStanford as RelModel
 else:

@@ -83,7 +83,6 @@ class ModelConfig(object):
         self.ad3 = False
         self.test = False
         self.adam = False
-        # self.freeze = False
         self.multi_pred=False
         self.cache = None
         self.model = None
@@ -92,7 +91,6 @@ class ModelConfig(object):
         self.use_tanh=False
         self.use_bias = False
         self.limit_vision=False
-        self.drop_lr_epoch = None
         self.num_epochs=None
         self.old_feats=False
         self.order=None
@@ -135,7 +133,7 @@ class ModelConfig(object):
         if self.mode not in MODES:
             raise ValueError("Invalid mode: mode must be in {}".format(MODES))
 
-        if self.model not in ('motifnet', 'baseline', 'stanford'):
+        if self.model not in ('motifnet', 'stanford'):
             raise ValueError("Invalid model {}".format(self.model))
 
 
@@ -172,7 +170,7 @@ class ModelConfig(object):
                             default=100)
         parser.add_argument('-m', dest='mode', help='mode \in {sgdet, sgcls, predcls}', type=str,
                             default='sgdet')
-        parser.add_argument('-model', dest='model', help='which model to use? (motifnet, baseline, stanford)', type=str,
+        parser.add_argument('-model', dest='model', help='which model to use? (motifnet, stanford). If you want to use the baseline (NoContext) model, then pass in motifnet here, and nl_obj, nl_edge=0', type=str,
                             default='motifnet')
         parser.add_argument('-old_feats', dest='old_feats', help='Use the original image features for the edges', action='store_true')
         parser.add_argument('-order', dest='order', help='Linearization order for Rois (confidence -default, size, random)',
@@ -180,13 +178,10 @@ class ModelConfig(object):
         parser.add_argument('-cache', dest='cache', help='where should we cache predictions', type=str,
                             default='')
         parser.add_argument('-gt_box', dest='gt_box', help='use gt boxes during training', action='store_true')
-        parser.add_argument('-adam', dest='adam', help='use adam', action='store_true')
+        parser.add_argument('-adam', dest='adam', help='use adam. Not recommended', action='store_true')
         parser.add_argument('-test', dest='test', help='test set', action='store_true')
-        # parser.add_argument('-freeze', dest='freeze', help='freeze det', action='store_true')
         parser.add_argument('-multipred', dest='multi_pred', help='Allow multiple predicates per pair of box0, box1.', action='store_true')
         parser.add_argument('-nepoch', dest='num_epochs', help='Number of epochs to train the model for',type=int, default=25)
-        parser.add_argument('-depoch', dest='drop_lr_epoch', help='When to drop the learning rate. If -1, dont drop the learning rate (default)',
-                            type=int, default=-1)
         parser.add_argument('-resnet', dest='use_resnet', help='use resnet instead of VGG', action='store_true')
         parser.add_argument('-proposals', dest='use_proposals', help='Use Xu et als proposals', action='store_true')
         parser.add_argument('-nl_obj', dest='nl_obj', help='Num object layers', type=int, default=1)
