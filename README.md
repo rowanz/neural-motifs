@@ -1,7 +1,7 @@
 # neural-motifs
 Code for Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)
 
-This repository contains data and code for the paper [Neural Motifs: Scene Graph Parsing with Global Context](https://arxiv.org/abs/1711.06640v2). For the project page, check out [rowanzellers.com/neuralmotifs](https://rowanzellers.com/neuralmotifs) There are a couple minor details I'm working on changing, but they're not that important, so feel free to read it now. If the paper significantly inspires you, we request that you cite our work:
+This repository contains data and code for the paper [Neural Motifs: Scene Graph Parsing with Global Context](https://arxiv.org/abs/1711.06640v2) - now updated for the CVPR camera ready! this should be the same as what's available via the CVPR site when that appears, just it has the supplemental section rolled into the same PDF. For the project page (as well as links to the baseline checkpoints), check out [rowanzellers.com/neuralmotifs](https://rowanzellers.com/neuralmotifs). If the paper significantly inspires you, we request that you cite our work:
 
 ### Bibtex
 
@@ -28,7 +28,7 @@ This repository contains data and code for the paper [Neural Motifs: Scene Graph
 Note: You might have to modify the learning rate and batch size, particularly if you don't have 3 Titan X GPUs (which is what I used). [You can also download the pretrained detector checkpoint here.](https://drive.google.com/open?id=11zKRr2OF5oclFL47kjFYBOxScotQzArX)
 
 4. Train VG scene graph classification: run ./scripts/train_models_sgcls.sh 2 (will run on GPU 2). OR, download the MotifNet-cls checkpoint here: [Motifnet-SGCls/PredCls](https://drive.google.com/open?id=12qziGKYjFD3LAnoy4zDT3bcg5QLC0qN6).
-5. Refine for detection: run ./scripts/refine_for_detection.sh 2 or download the [Motifnet-SGDet](https://drive.google.com/open?id=1thd_5uSamJQaXAPVGVOUZGAOfGCYZYmb).
+5. Refine for detection: run ./scripts/refine_for_detection.sh 2 or download the [Motifnet-SGDet](https://drive.google.com/open?id=1thd_5uSamJQaXAPVGVOUZGAOfGCYZYmb) checkpoint.
 6. Evaluate: Refer to the scripts ./scripts/eval_models_sg[cls/det].sh.
 
 # help
