@@ -17,7 +17,8 @@ This repository contains data and code for the paper [Neural Motifs: Scene Graph
 
 
 0. Install python3.6 and pytorch 3. I recommend the [Anaconda distribution](https://repo.continuum.io/archive/). To install PyTorch if you haven't already, use
- ```conda install pytorch torchvision cuda90 -c pytorch```.
+ ```conda install pytorch=0.3.0 torchvision=0.2.0 cuda90 -c pytorch```.
+ 
 1. Update the config file with the dataset paths. Specifically:
     - Visual Genome (the VG_100K folder, image_data.json, VG-SGG.h5, and VG-SGG-dicts.json). See data/stanford_filtered/README.md for the steps I used to download these.
     - You'll also need to fix your PYTHONPATH: ```export PYTHONPATH=/home/rowan/code/scene-graph``` 
@@ -33,4 +34,4 @@ Note: You might have to modify the learning rate and batch size, particularly if
 
 # help
 
-Feel free to ping me if you encounter trouble getting it to work!
+Feel free to open an issue if you encounter trouble getting it to work!
