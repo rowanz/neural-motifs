@@ -316,7 +316,7 @@ class ObjectDetector(nn.Module):
             box_deltas = od_box_deltas[nms_inds]
             box_priors = nms_boxes[:, 0]
 
-            if (not self.training and not self.mode == 'gtbox'):
+            if self.training and not self.mode == 'gtbox':
                 # NOTE: If we're doing this during training, we need to assign labels here.
                 pred_to_gtbox = bbox_overlaps(box_priors, gt_boxes).data
                 pred_to_gtbox[im_inds.data[:, None] != gt_classes.data[None, :, 0]] = 0.0
