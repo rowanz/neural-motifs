@@ -12,7 +12,7 @@ from six.moves.urllib.request import urlretrieve
 from tqdm import tqdm
 
 from config import DATA_PATH
-
+import sys
 
 def obj_edge_vectors(names, wv_type='glove.6B', wv_dir=DATA_PATH, wv_dim=300):
     wv_dict, wv_arr, wv_size = load_word_vectors(wv_dir, wv_type, wv_dim)
