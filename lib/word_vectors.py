@@ -52,7 +52,23 @@ def load_word_vectors(root, wv_type, dim):
     if os.path.isfile(fname + '.pt'):
         fname_pt = fname + '.pt'
         print('loading word vectors from', fname_pt)
-        return torch.load(fname_pt)
+        try:
+            return torch.load(fname_pt)
+        except Exception as e:
+            print("""
+                Error loading the model from {}
+
+                This could be because this code was previously run with one
+                PyTorch version to generate cached data and is now being
+                run with another version.
+                You can try to delete the cached files on disk (this file
+                  and others) and re-running the code
+
+                Error message:
+                ---------
+                {}
+                """.format(fname_pt, str(e)))
+            sys.exit(-1)
     if os.path.isfile(fname + '.txt'):
         fname_txt = fname + '.txt'
         cm = open(fname_txt, 'rb')
