@@ -15,7 +15,7 @@ from lib.fpn.proposal_assignments.proposal_assignments_det import proposal_assig
 from lib.fpn.roi_align.functions.roi_align import RoIAlignFunction
 from lib.pytorch_misc import enumerate_by_image, gather_nd, diagonal_inds, Flattener
 from torchvision.models.vgg import vgg16
-from torchvision.models.resnet import resnet101
+from torchvision.models.resnet import resnet101, resnet34
 from torch.nn.parallel._functions import Gather
 
 
@@ -81,13 +81,8 @@ class ObjectDetector(nn.Module):
             self.roi_fmap = vgg_model.classifier
             rpn_input_dim = 512
             output_dim = 4096
-        else:  # Deprecated
+        else:
             self.features = load_resnet()
-            self.compress = nn.Sequential(
-                nn.Conv2d(1024, 256, kernel_size=1),
-                nn.ReLU(inplace=True),
-                nn.BatchNorm2d(256),
-            )
             self.roi_fmap = nn.Sequential(
                 nn.Linear(256 * 7 * 7, 2048),
                 nn.SELU(inplace=True),
@@ -96,7 +91,7 @@ class ObjectDetector(nn.Module):
                 nn.SELU(inplace=True),
                 nn.AlphaDropout(p=0.05),
             )
-            rpn_input_dim = 1024
+            rpn_input_dim = 256
             output_dim = 2048
 
         self.score_fc = nn.Linear(output_dim, self.num_classes)
@@ -134,7 +129,7 @@ class ObjectDetector(nn.Module):
         :return: [num_rois, #dim] array
         """
         feature_pool = RoIAlignFunction(self.pooling_size, self.pooling_size, spatial_scale=1 / 16)(
-            self.compress(features) if self.use_resnet else features, rois)
+            features, rois)
         return self.roi_fmap(feature_pool.view(rois.size(0), -1))
 
     def rpn_boxes(self, fmap, im_sizes, image_offset, gt_boxes=None, gt_classes=None, gt_rels=None,
@@ -613,7 +608,7 @@ def filter_roi_proposals(box_preds, class_preds, boxes_per_im, nms_thresh=0.7, p
 
 
 def load_resnet():
-    model = resnet101(pretrained=True)
+    model = resnet34(pretrained=True)
     del model.layer4
     del model.avgpool
     del model.fc

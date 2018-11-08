@@ -329,6 +329,7 @@ class RelModel(nn.Module):
         self.embed_dim = embed_dim
         self.hidden_dim = hidden_dim
         self.obj_dim = 2048 if use_resnet else 4096
+        self.use_resnet = use_resnet
         self.pooling_dim = pooling_dim
 
         self.use_bias = use_bias
@@ -355,13 +356,21 @@ class RelModel(nn.Module):
 
         # Image Feats (You'll have to disable if you want to turn off the features from here)
         self.union_boxes = UnionBoxesAndFeats(pooling_size=self.pooling_size, stride=16,
-                                              dim=1024 if use_resnet else 512)
+                                              dim=256 if use_resnet else 512)
 
         if use_resnet:
             self.roi_fmap = nn.Sequential(
                 resnet_l4(relu_end=False),
                 nn.AvgPool2d(self.pooling_size),
                 Flattener(),
+            )
+            self.roi_fmap_obj = nn.Sequential(
+                nn.Linear(256 * 7 * 7, 2048),
+                nn.SELU(inplace=True),
+                nn.AlphaDropout(p=0.05),
+                nn.Linear(2048, 2048),
+                nn.SELU(inplace=True),
+                nn.AlphaDropout(p=0.05),
             )
         else:
             roi_fmap = [
@@ -411,6 +420,8 @@ class RelModel(nn.Module):
         """
         assert pair_inds.size(1) == 2
         uboxes = self.union_boxes(features, rois, pair_inds)
+        if (self.use_resnet):
+            return self.roi_fmap_obj(uboxes.view(pair_inds.size(0), -1))
         return self.roi_fmap(uboxes)
 
     def get_rel_inds(self, rel_labels, im_inds, box_priors):

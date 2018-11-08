@@ -2,6 +2,7 @@ import torch.nn as nn
 import math
 import torch.utils.model_zoo as model_zoo
 from torchvision.models.resnet import model_urls, conv3x3, BasicBlock
+from torchvision.models.resnet import resnet34
 from torchvision.models.vgg import vgg16
 from config import BATCHNORM_MOMENTUM
 
@@ -124,7 +125,7 @@ def resnet_l123():
     return model
 
 def resnet_l4(relu_end=True):
-    model = resnet101(pretrained=True)
+    model = resnet34(pretrained=True)
     l4 = model.layer4
     if not relu_end:
         l4[-1].relu_end = False

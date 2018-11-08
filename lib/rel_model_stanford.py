@@ -43,7 +43,7 @@ class RelModelStanford(RelModel):
         self.obj_fc = nn.Linear(SIZE, self.num_classes)
 
         self.obj_unary = nn.Linear(self.obj_dim, SIZE)
-        self.edge_unary = nn.Linear(4096, SIZE)
+        self.edge_unary = nn.Linear(self.pooling_dim, SIZE)
 
 
         self.edge_gru = nn.GRUCell(input_size=SIZE, hidden_size=SIZE)
