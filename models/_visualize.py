@@ -31,7 +31,18 @@ train_loader, val_loader = VGDataLoader.splits(train, val, mode='rel',
                                                num_gpus=conf.num_gpus)
 
 detector = RelModel(classes=train.ind_to_classes, rel_classes=train.ind_to_predicates,
-                    num_gpus=conf.num_gpus, mode=conf.mode)
+                    num_gpus=conf.num_gpus, mode=conf.mode, require_overlap_det=True,
+                    use_resnet=conf.use_resnet, order=conf.order,
+                    nl_edge=conf.nl_edge, nl_obj=conf.nl_obj, hidden_dim=conf.hidden_dim,
+                    use_proposals=conf.use_proposals,
+                    pass_in_obj_feats_to_decoder=conf.pass_in_obj_feats_to_decoder,
+                    pass_in_obj_feats_to_edge=conf.pass_in_obj_feats_to_edge,
+                    pooling_dim=conf.pooling_dim,
+                    rec_dropout=conf.rec_dropout,
+                    use_bias=conf.use_bias,
+                    use_tanh=conf.use_tanh,
+                    limit_vision=conf.limit_vision
+                    )
 detector.cuda()
 ckpt = torch.load(conf.ckpt)
 
@@ -123,12 +134,12 @@ def val_batch(batch_num, b, evaluator, thrs=(20, 50, 100)):
     }
     # gt_entry = {'gt_classes': gtc[i], 'gt_relations': gtr[i], 'gt_boxes': gtb[i]}
     assert np.all(objs_i[rels_i[:, 0]] > 0) and np.all(objs_i[rels_i[:, 1]] > 0)
-    assert np.all(rels_i[:, 2] > 0)
+    # assert np.all(rels_i[:, 2] > 0)
 
     pred_entry = {
         'pred_boxes': boxes_i * BOX_SCALE / IM_SCALE,
         'pred_classes': objs_i,
-        'pred_rels': rels_i,
+        'pred_rel_inds': rels_i,
         'obj_scores': obj_scores_i,
         'rel_scores': pred_scores_i,
     }
