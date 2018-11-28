@@ -1,7 +1,8 @@
 # neural-motifs
-Code for Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)
 
-This repository contains data and code for the paper [Neural Motifs: Scene Graph Parsing with Global Context](https://arxiv.org/abs/1711.06640v2) - now updated for the CVPR camera ready! this should be the same as what's available via the CVPR site when that appears, just it has the supplemental section rolled into the same PDF. For the project page (as well as links to the baseline checkpoints), check out [rowanzellers.com/neuralmotifs](https://rowanzellers.com/neuralmotifs). If the paper significantly inspires you, we request that you cite our work:
+### Like this work, or scene understanding in general? You might be interested in checking out my brand new dataset VCR: Visual Commonsense Reasoning, at [visualcommonsense.com](https://visualcommonsense.com)!
+
+This repository contains data and code for the paper [Neural Motifs: Scene Graph Parsing with Global Context (CVPR 2018)](https://arxiv.org/abs/1711.06640v2) For the project page (as well as links to the baseline checkpoints), check out [rowanzellers.com/neuralmotifs](https://rowanzellers.com/neuralmotifs). If the paper significantly inspires you, we request that you cite our work:
 
 ### Bibtex
 
