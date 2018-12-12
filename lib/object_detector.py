@@ -9,7 +9,7 @@ from config import ANCHOR_SIZE, ANCHOR_RATIOS, ANCHOR_SCALES
 from lib.fpn.generate_anchors import generate_anchors
 from lib.fpn.box_utils import bbox_preds, center_size, bbox_overlaps
 from lib.fpn.nms.functions.nms import apply_nms
-from lib.fpn.proposal_assignments.proposal_assignments_gtbox import proposal_assignments_gtbox
+from lib.fpn.proposal_assignments.rel_assignments import rel_assignments_sgcls
 from lib.fpn.proposal_assignments.proposal_assignments_det import proposal_assignments_det
 
 from lib.fpn.roi_align.functions.roi_align import RoIAlignFunction
@@ -214,7 +214,7 @@ class ObjectDetector(nn.Module):
         im_inds = gt_classes[:, 0] - image_offset
         rois = torch.cat((im_inds.float()[:, None], gt_boxes), 1)
         if gt_rels is not None and self.training:
-            rois, labels, rel_labels = proposal_assignments_gtbox(
+            rois, labels, rel_labels = rel_assignments_sgcls(
                 rois.data, gt_boxes.data, gt_classes.data, gt_rels.data, image_offset,
                 fg_thresh=0.5)
         else:

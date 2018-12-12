@@ -8,7 +8,7 @@ import torch.nn.parallel
 from torch.autograd import Variable
 from torch.nn import functional as F
 from lib.surgery import filter_dets
-from lib.fpn.proposal_assignments.rel_assignments import rel_assignments
+from lib.fpn.proposal_assignments.rel_assignments import rel_assignments_sgdet
 from lib.pytorch_misc import arange
 from lib.object_detector import filter_det
 from lib.rel_model import RelModel
@@ -63,7 +63,7 @@ class RelModelStanford(RelModel):
         :param rel_rep: [num_rel, fc]
         :param obj_rep: [num_obj, fc]
         :param rel_inds: [num_rel, 2] of the valid relationships
-        :return: object prediction [num_obj, 151], bbox_prediction [num_obj, 151*4] 
+        :return: object prediction [num_obj, 151], bbox_prediction [num_obj, 151*4]
                 and rel prediction [num_rel, 51]
         """
         # [num_obj, num_rel] with binary!
@@ -125,10 +125,10 @@ class RelModelStanford(RelModel):
                                   be used to compute the training loss. Each (img_ind, fpn_idx)
         :return: If train:
             scores, boxdeltas, labels, boxes, boxtargets, rpnscores, rpnboxes, rellabels
-            
+
             if test:
             prob dists, boxes, img inds, maxscores, classes
-            
+
         """
         result = self.detector(x, im_sizes, image_offset, gt_boxes, gt_classes, gt_rels, proposals,
                                train_anchor_inds, return_fmap=True)
@@ -141,7 +141,7 @@ class RelModelStanford(RelModel):
 
         if self.training and result.rel_labels is None:
             assert self.mode == 'sgdet'
-            result.rel_labels = rel_assignments(im_inds.data, boxes.data, result.rm_obj_labels.data,
+            result.rel_labels = rel_assignments_sgdet(im_inds.data, boxes.data, result.rm_obj_labels.data,
                                                 gt_boxes.data, gt_classes.data, gt_rels.data,
                                                 image_offset, filter_non_overlap=True, num_sample_per_gt=1)
         rel_inds = self.get_rel_inds(result.rel_labels, im_inds, boxes)
