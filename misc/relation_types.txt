@@ -1,0 +1,51 @@
+__background__	background
+above	geometric
+across	geometric
+against	geometric
+along	geometric
+and	geometric
+at	geometric
+attached to	semantic
+behind	geometric
+belonging to	posession
+between	geometric
+carrying	semantic
+covered in	semantic
+covering	semantic
+eating	semantic
+flying in	semantic
+for	misc
+from	misc
+growing on	semantic
+hanging from	semantic
+has	posession
+holding	light_semantic_posession
+in	geometric
+in front of	geometric
+laying on	semantic
+looking at	semantic
+lying on	semantic
+made of	misc
+mounted on	semantic
+near	geometric
+of	posession
+on	geometric
+on back of	geometric
+over	geometric
+painted on	semantic
+parked on	semantic
+part of	posession
+playing	semantic
+riding	semantic
+says	semantic
+sitting on	semantic
+standing on	semantic
+to	posession
+under	geometric
+using	light_semantic_posession
+walking in	semantic
+walking on	semantic
+watching	semantic
+wearing	wearing
+wears	wearing
+with	posession
