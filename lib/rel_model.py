@@ -18,7 +18,7 @@ from lib.lstm.decoder_rnn import DecoderRNN
 from lib.lstm.highway_lstm_cuda.alternating_highway_lstm import AlternatingHighwayLSTM
 from lib.fpn.box_utils import bbox_overlaps, center_size
 from lib.get_union_boxes import UnionBoxesAndFeats
-from lib.fpn.proposal_assignments.rel_assignments import rel_assignments
+from lib.fpn.proposal_assignments.rel_assignments import rel_assignments_sgdet
 from lib.object_detector import ObjectDetector, gather_res, load_vgg
 from lib.pytorch_misc import transpose_packed_sequence_inds, to_onehot, arange, enumerate_by_image, diagonal_inds, Flattener
 from lib.sparse_targets import FrequencyBias
@@ -464,10 +464,10 @@ class RelModel(nn.Module):
                                   be used to compute the training loss. Each (img_ind, fpn_idx)
         :return: If train:
             scores, boxdeltas, labels, boxes, boxtargets, rpnscores, rpnboxes, rellabels
-            
+
             if test:
             prob dists, boxes, img inds, maxscores, classes
-            
+
         """
         result = self.detector(x, im_sizes, image_offset, gt_boxes, gt_classes, gt_rels, proposals,
                                train_anchor_inds, return_fmap=True)
@@ -479,7 +479,7 @@ class RelModel(nn.Module):
 
         if self.training and result.rel_labels is None:
             assert self.mode == 'sgdet'
-            result.rel_labels = rel_assignments(im_inds.data, boxes.data, result.rm_obj_labels.data,
+            result.rel_labels = rel_assignments_sgdet(im_inds.data, boxes.data, result.rm_obj_labels.data,
                                                 gt_boxes.data, gt_classes.data, gt_rels.data,
                                                 image_offset, filter_non_overlap=True,
                                                 num_sample_per_gt=1)
