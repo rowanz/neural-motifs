@@ -305,27 +305,33 @@ class ObjectDetector(nn.Module):
         od_box_priors = rois[:, 1:]
 
         if (not self.training and not self.mode == 'gtbox') or self.mode in ('proposals', 'refinerels'):
-            nms_inds, nms_scores, nms_preds, nms_boxes_assign, nms_boxes, nms_imgs = self.nms_boxes(
+            nms_res = self.nms_boxes(
                 od_obj_dists,
                 rois,
                 od_box_deltas, im_sizes,
             )
-            im_inds = nms_imgs + image_offset
-            obj_dists = od_obj_dists[nms_inds]
-            obj_fmap = obj_fmap[nms_inds]
-            box_deltas = od_box_deltas[nms_inds]
-            box_priors = nms_boxes[:, 0]
 
-            if self.training and not self.mode == 'gtbox':
-                # NOTE: If we're doing this during training, we need to assign labels here.
-                pred_to_gtbox = bbox_overlaps(box_priors, gt_boxes).data
-                pred_to_gtbox[im_inds.data[:, None] != gt_classes.data[None, :, 0]] = 0.0
-
-                max_overlaps, argmax_overlaps = pred_to_gtbox.max(1)
-                rm_obj_labels = gt_classes[:, 1][argmax_overlaps]
-                rm_obj_labels[max_overlaps < 0.5] = 0
+            if nms_res is None:
+                return None
             else:
-                rm_obj_labels = None
+                nms_inds, nms_scores, nms_preds, nms_boxes_assign, nms_boxes, nms_imgs = nms_res
+
+                im_inds = nms_imgs + image_offset
+                obj_dists = od_obj_dists[nms_inds]
+                obj_fmap = obj_fmap[nms_inds]
+                box_deltas = od_box_deltas[nms_inds]
+                box_priors = nms_boxes[:, 0]
+
+                if self.training and not self.mode == 'gtbox':
+                    # NOTE: If we're doing this during training, we need to assign labels here.
+                    pred_to_gtbox = bbox_overlaps(box_priors, gt_boxes).data
+                    pred_to_gtbox[im_inds.data[:, None] != gt_classes.data[None, :, 0]] = 0.0
+
+                    max_overlaps, argmax_overlaps = pred_to_gtbox.max(1)
+                    rm_obj_labels = gt_classes[:, 1][argmax_overlaps]
+                    rm_obj_labels[max_overlaps < 0.5] = 0
+                else:
+                    rm_obj_labels = None
         else:
             im_inds = rois[:, 0].long().contiguous() + image_offset
             nms_scores = None
